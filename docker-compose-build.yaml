@@ -1,0 +1,70 @@
+#####
+##### https://medium.com/@fezu54/our-story-with-flutter-and-gitlab-ci-26bd40c26155
+#####
+##### Docs for CD with flutter: https://flutter.dev/docs/deployment/cd
+
+version: "3.7"
+
+services:
+
+  lint:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh","-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      - |
+        echo "Getting dependencies now..."
+        flutter pub get
+
+        echo "Generating source-code (freezed, ...etc)"
+        flutter pub run build_runner build --delete-conflicting-outputs
+
+        echo "Analyzing everything..."
+        dart analyze 
+
+  # Tests and generates the junit + coverage
+  # https://medium.com/ideas-by-idean/flutter-test-reports-in-cis-current-state-of-art-8968b0c8dd4a
+  test:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh","-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      - |
+        echo "Getting dependencies now..."
+        flutter pub get
+
+        echo "Generating source-code (freezed, ...etc)"
+        flutter pub run build_runner build --delete-conflicting-outputs
+
+        echo "Running the test coverage"
+        flutter test --coverage --machine | tojunit --output build/app/reports/junit-tests-report.xml
+
+        echo "Converting the test coverage lcov"
+        genhtml coverage/lcov.info --output=coverage
+
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  bump-version:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh","-c"]
+    working_dir: /supercash-web
+    volumes:
+      - .:/supercash-web
+    command:
+      # Set the env vars for the version to be set in pubspec.yaml https://docs.gitlab.com/ee/ci/variables/
+      - |
+        [ -n "${APP_VERSION}" ] || { echo "🔥 env var APP_VERSION must be defined (using cider)..."; exit 1; }
+        [ -n "${CI_COMMIT_SHORT_SHA}" ] || { echo "🔥 env var CI_COMMIT_SHORT_SHA must be defined..."; exit 1; }
+        [ -n "${CI_PIPELINE_ID}" ] || { echo "🔥 env var CI_PIPELINE_ID must be defined by pipeline ID..."; exit 1; }
+
+        echo "INFO: Previous version is the following"
+        cider version
+
+        echo "INFO: versioning pubspec.yaml with version_name 'APP_VERSION-CI_COMMIT_SHORT_SHA+CI_PIPELINE_ID': ${APP_VERSION}-${CI_COMMIT_SHORT_SHA}+${CI_PIPELINE_ID}"
+        cider version "${APP_VERSION}-${CI_COMMIT_SHORT_SHA}+${CI_PIPELINE_ID}"
+
+        echo "Result persisted in pubspec.yaml"
+        cat pubspec.yaml | grep version:

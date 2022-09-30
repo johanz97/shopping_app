@@ -1,0 +1,25 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "**/*.iconfig.dart"
+    - "**/*.config.dart"
+
+  errors:
+    avoid_print: warning
+    constant_identifier_names: ignore
+    invalid_annotation_target: ignore
+    lines_longer_than_80_chars: ignore
+    missing_return: error
+    public_member_api_docs: ignore
+    one_member_abstracts: ignore
+    todo: ignore
+    prefer_relative_imports: warning
+    avoid_relative_lib_imports: warning
+
+linter:
+  rules:
+    prefer_relative_imports: true

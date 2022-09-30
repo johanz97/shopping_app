@@ -1,0 +1,81 @@
+{
+   "info_app_container":{
+      "title":"Baixo nosso aplicativo en recebacashback em compras!",
+      "msg":"Pague estacionamento, compras e tenha uma experiencia mais rapida! Crie sua conta do Maceio Shopping!",
+      "action_1":"NÃO AGORA",
+      "action_2":"PAGUE AQUI"
+      
+   },
+   "TicketNotPaidStatusWidget": {
+      "subTitle": "Primeiros 20 minutos Gratis!\nR$ 7,00 a cada 4 horas",
+      "status_1":"Pago",
+      "status_2":"Grátis",
+      "status_3": "SAIU",
+      "action":"Pague",
+      "title_2": "Ticket de pagamento",
+      "subtitle_2":"O bilhete não é mais gratuito, favor fazer o pagamento"
+
+   },
+   "TicketPaidStatusWidget": {
+      "title":"Bilhete pago",
+      "subtitle":"Escanei esse ticket na saida!"
+   },
+   "ErrorState":{
+      "error_1":"Ocorreu um erro",
+      "error_2":"Ticket {}\nnão encontrado!",
+      "error_3":"Servidor não\nestá funcionando!",
+      "action":"Tente novamente",
+      "error_4": "Página não encontrada!",
+      "error_5": "Ticket\nnão encontrado!",
+      "error_6": "Número de\nticket inválido!"
+   },
+   "TableValues":{
+      "value":"Valor",
+      "rate":"Taxa de Serviço",
+      "total":"Total",
+      "valor_pago":"Valor pago",
+      "add_value":"Valor  adicional"
+   },
+   "credit_card_form":{
+      "title":"Forma de pagamento",
+      "bank_name":"Seu Banco",
+      "text_exp_date":"Exp. Data",
+      "text_name":"Nome",
+      "format_date":"MM/YYYY",
+      "action":"Confirmar pagamento",
+      "holder_name":{
+         "title":"Nome do proprietário",
+          "hint":"Seu nome",
+           "error_1":"Digite o nome do proprietário'"
+      },
+      "card_number":{
+         "title":"Número do cartão",
+         "hint":"XXXX XXXX XXXX XXXX",
+         "error_1": "Digite o número do cartão",
+         "error_2": "Digite um cartão de crédito válido"
+      },
+      "date_exp": {
+         "title":"Valida até",
+         "hint":"MM/YYYY",
+         "error_1":"Mês inválido",
+         "error_2":"Año inválido",
+         "error_3":"Digite uma data"
+      },
+      "cvv_code" : {
+         "title":"CVV",
+         "hint":"XXX",
+         "error_1":"Digite o código",
+         "error_2":""
+      },
+      "LoadingStateWidget":{
+         "title":"Processamento do pagamento!",
+         "subtitle":"Espere alguns segundos..."
+      }
+
+   },
+   "error_page": {
+      "title_1":"Ticket já está pago",
+      "titl_2":"Correu um erro ",
+      "subtitle":"Tente novamente"
+   }
+}

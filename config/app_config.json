@@ -1,0 +1,18 @@
+{
+  "defEnv": "Dev",
+  "testUser": {
+    "email": "1cashsuper1@super.cash",
+    "password": "1superpassword1",
+    "otp": "123456",
+    "otpConfirmed": false,
+    "cep": "57309610",
+    "credit_card": {
+      "number": "4111111111111111",
+      "expMonth": "02",
+      "expYear": "2026",
+      "cvv": "123",
+      "name": "JOSE DA SILVA",
+      "cpf": "315.161.340-36"
+    }
+  }
+}

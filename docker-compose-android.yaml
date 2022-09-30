@@ -1,0 +1,267 @@
+#####
+##### https://medium.com/@fezu54/our-story-with-flutter-and-gitlab-ci-26bd40c26155
+#####
+##### Docs for CD with flutter: https://flutter.dev/docs/deployment/cd
+#####
+##### INSTRUCTIONS: Run the commands as follows:
+##### docker-compose -f docker-compose-android.yaml SERVICE_NAME
+
+version: "3.7"
+
+services:
+
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-package:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      - |
+        [ -n "${VERSION_CODE}" ] || { echo "🔥 env var VERSION_CODE must be defined by pipeline ID..."; exit 1; }
+        fastlane env
+        echo "INFO: version for package is the following"
+        cider version
+        cat pubspec.yaml | grep version:
+
+        echo ""
+        echo "INFO: Flutter env"
+        flutter doctor -v
+        echo ""
+
+        echo "INFO: Getting dependencies..."
+        flutter pub get
+
+        echo "INFO: Moving the main from dev..."
+        cp lib/main_dev.dart lib/main.dart
+
+        echo "INFO: Generating code..."
+        flutter pub run build_runner build --delete-conflicting-outputs
+
+        echo "INFO: Generating app bundle with the version in pubspec.yaml"
+        flutter build appbundle --release
+
+        echo "INFO: Generating app apk with version in pubspec.yaml"
+        flutter build apk --release
+
+  # TODO: Create a docker image with the APK and ABB file for quick versioning
+  # When promoting images, just docker pull the origina build
+
+  ########################################## >>>>>>>>>>>>> MUST RUN IN feature/* -> develop
+  # MAKE SURE TO FIRST RUN app-package!
+  # Publishes the apk/aab to the internal lane of Android
+  app-deploy-internal:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        echo "INFO: Making sure the step build was executed successfully..."
+
+        echo "INFO: version for package is the following"
+        cider version
+        cat pubspec.yaml | grep version:
+
+        echo ""
+        echo "INFO: Fastlane Env"
+        echo "" 
+        fastlane env
+
+        echo ""
+        echo "INFO: Flutter doctor env"
+        flutter doctor -v
+        echo ""
+        
+        echo "INFO Looking for /supercash-mobile/build/app/outputs/bundle/release/app-release.aab (specified at android/fastlane/Fastfile)"
+        if [ ! -f /supercash-mobile/build/app/outputs/bundle/release/app-release.aab ]; then echo "ERROR Run docker-compose's package first!"; fi
+        
+        cd android/
+        echo "INFO Setting up bundle after the package generated Gemfile.lock"
+        bundle install
+
+        echo "INFO validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO Uploading to Google Play Store Internal..."
+        bundle exec fastlane upload_to_play_store_internal
+
+  ########################################## >>>>>>>>>>>>> MUST RUN IN feature/* -> develop
+  # MAKE SURE TO FIRST RUN app-package!
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-deploy-alpha:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        echo "INFO: Making sure the step build was executed successfully..."
+
+        fastlane env
+        echo ""
+        echo "INFO: Flutter env"
+        flutter doctor -v
+        echo ""
+
+        echo "INFO: Looking for /supercash-mobile/build/app/outputs/bundle/release/app-release.aab (specified at android/fastlane/Fastfile)"
+        if [ ! -f /supercash-mobile/build/app/outputs/bundle/release/app-release.aab ]; then echo "ERROR: Run docker-compose's package first!"; fi
+
+        cd android/
+        echo "INFO: Setting up bundle after the package generated Gemfile.lock"
+        bundle install
+
+        echo "INFO: validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO: Uploading to Google Play Store: Alpha..."
+        bundle exec fastlane upload_to_play_store_alpha
+
+  ########################################## >>>>>>>>>>>>> MUST RUN IN develop
+  # MAKE SURE TO FIRST RUN app-package!
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-deploy-closed-alpha-testing:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        echo "Starting app-deploy-closed-alpha-testing..."
+        [ -n "${APP_VERSION}" ] || { echo "🔥 env var APP_VERSION must be defined (using cider)..."; exit 1; }
+        [ -n "${CI_COMMIT_SHORT_SHA}" ] || { echo "🔥 env var CI_COMMIT_SHORT_SHA must be defined..."; exit 1; }
+        [ -n "${VERSION_CODE}" ] || { echo "🔥 env var VERSION_CODE must be defined by pipeline ID..."; exit 1; }
+
+        fastlane env
+
+        echo "INFO: Version to be promoted"
+        cider version
+        
+        echo "INFO Making sure the step build was executed successfully..."
+        echo "INFO Looking for /supercash-mobile/build/app/outputs/bundle/release/app-release.aab (specified at android/fastlane/Fastfile)"
+        if [ ! -f /supercash-mobile/build/app/outputs/bundle/release/app-release.aab ]; then echo "ERROR Run docker-compose's package first!"; fi
+
+        cd android/
+        echo "INFO Setting up bundle after the package generated Gemfile.lock"
+        bundle install
+
+        echo "INFO validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO Promoting to Google Play Store Closed testing Alpha"
+        bundle exec fastlane promote_internal_to_closed_alpha
+
+        echo "INFO Verify the build at https://play.google.com/apps/test/cash.super_.marketplace.maceioshopping/${VERSION_CODE}"
+
+  # MAKE SURE TO FIRST RUN app-package!
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-deploy-open-beta-testing:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        [ -n "${APP_VERSION}" ] || { echo "🔥 env var APP_VERSION must be defined (using cider)..."; exit 1; }
+        [ -n "${CI_COMMIT_SHORT_SHA}" ] || { echo "🔥 env var CI_COMMIT_SHORT_SHA must be defined..."; exit 1; }
+        [ -n "${VERSION_CODE}" ] || { echo "🔥 env var VERSION_CODE must be defined by pipeline ID..."; exit 1; }
+
+        fastlane env
+
+        echo "INFO: Making sure the step build was executed successfully..."
+        echo "INFO: Looking for /supercash-mobile/build/app/outputs/bundle/release/app-release.aab (specified at android/fastlane/Fastfile)"
+        if [ ! -f /supercash-mobile/build/app/outputs/bundle/release/app-release.aab ]; then echo "ERROR: Run docker-compose's package first!"; fi
+
+        cd android/
+        echo "INFO: Setting up bundle after the package generated Gemfile.lock"
+        bundle install
+
+        echo "INFO: validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO: Promoting to Google Play Store: Open testing: Beta"
+        bundle exec fastlane promote_internal_to_open_beta
+
+        echo "INFO: Go to the project open testing for downloading after it's reviewed"
+        echo "https://play.google.com/apps/testing/cash.super_.marketplace.maceioshopping"
+
+  # MAKE SURE TO FIRST RUN app-package!
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-metadata_upload:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        [ -n "${APP_VERSION}" ] || { echo "🔥 env var APP_VERSION must be defined (using cider)..."; exit 1; }
+        [ -n "${CI_COMMIT_SHORT_SHA}" ] || { echo "🔥 env var CI_COMMIT_SHORT_SHA must be defined..."; exit 1; }
+        [ -n "${VERSION_CODE}" ] || { echo "🔥 env var VERSION_CODE must be defined by pipeline ID..."; exit 1; }
+
+        echo "INFO: Previous version"
+        cider version
+
+        echo "INFO: Setting up metadata..."
+        cd android/
+        bundle install
+
+        echo "INFO: validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO: Uploading to Google Play Store: Internal..."
+        bundle exec fastlane supply init
+
+  # MAKE SURE TO FIRST RUN app-package!
+  # Generates the pkg at build/app/outputs/flutter-apk/app-release.apk
+  app-metadata_upload_screenshots:
+    image: registry.gitlab.com/supercash/resources/flutter-docker-image:android-sdk-31.0.0_flutter-2.8.0_ae2c95ee-master
+    entrypoint: ["/bin/sh", "-c"]
+    working_dir: /supercash-mobile
+    volumes:
+      - .:/supercash-mobile
+    command:
+      # https://stackoverflow.com/questions/30063907/using-docker-compose-how-to-execute-multiple-commands/65584498#65584498
+      # https://stackoverflow.com/questions/23801899/bundlergemnotfound-could-not-find-rake-10-3-2-in-any-of-the-sources/26231894#26231894
+      # Setup fastlane for android by installing bundler and bundle install
+      - |
+        echo "INFO: Making sure the step build was executed successfully..."
+        echo "INFO: Looking for /supercash-mobile/build/app/outputs/bundle/release/app-release.aab (specified at android/fastlane/Fastfile)"
+        if [ ! -f /supercash-mobile/build/app/outputs/bundle/release/app-release.aab ]; then echo "ERROR: Run docker-compose's package first!"; fi
+
+        echo "INFO: Previous version"
+        cider version
+
+        cider bump ${SEMVER_TYPE} --pre=${VERSION_SHA}
+        echo "INFO: Next version in pubspec.yaml"
+        cat pubspec.yaml | grep version:
+
+        echo "INFO: Setting up bundle..."
+        cd android/
+        bundle install
+
+        echo "INFO: validating the secret..."
+        bundle exec fastlane run validate_play_store_json_key json_key:/supercash-mobile/android/fastlane/secret.json
+
+        echo "INFO: Uploading to Google Play Store: Internal..."
+        bundle exec fastlane deliver screenshots

@@ -1,0 +1,533 @@
+{
+  "info_app_container": {
+    "title": "Baixo nosso aplicativo en recebacashback em compras!",
+    "msg": "Pague estacionamento, compras e tenha uma experiencia mais rapida! Crie sua conta do Maceio Shopping!",
+    "action_1": "NÃO AGORA",
+    "action_2": "PAGUE AQUI"
+  },
+  "TicketNotPaidStatusWidget": {
+    "subTitle": "Primeiros 20 minutos Gratis!",
+    "subtitle_3": "Seu bilhete é gratuito durante todo o dia!",
+    "status_1": "Pago",
+    "status_2": "Grátis",
+    "status_3": "SAIU",
+    "action": "Pague",
+    "action_2": "Eliminar",
+    "title_2": "Ticket de pagamento",
+    "subtitle_2": "O bilhete não é mais gratuito, favor fazer o pagamento",
+    "cards_list_modal": {
+      "title": "Selecione uma forma\nde pagamento",
+      "accept": "Pague",
+      "cancel": "Cancelar"
+    }
+  },
+  "TicketPaidStatusWidget": {
+    "title": "Bilhete pago",
+    "subtitle": "Escanei esse ticket na saida!",
+    "action_1": "Archivar",
+    "subtitle_2": "Arquive seu bilhete para que possamos digitalizar um novo."
+  },
+  "ErrorState": {
+    "error_1": "Ocorreu um erro",
+    "error_2": "Ticket {}\nnão encontrado!",
+    "error_3": "Servidor não\nestá funcionando!",
+    "action": "Tente novamente",
+    "error_4": "Página não encontrada!",
+    "error_5": "Ticket\nnão encontrado!",
+    "error_6": "Número de\nticket inválido!"
+  },
+  "TableValues": {
+    "value": "Valor",
+    "rate": "Taxa de Serviço",
+    "total": "Total",
+    "valor_pago": "Valor pago",
+    "add_value": "Valor  adicional"
+  },
+  "credit_card_form": {
+    "title": "Forma de pagamento",
+    "bank_name": "Seu Banco",
+    "text_exp_date": "Exp. Data",
+    "text_name": "Nome",
+    "format_date": "MM/YYYY",
+    "action_1": "Salvar",
+    "action_2": "Confirmar dados",
+    "action_3": "Atualização",
+    "holder_name": {
+      "title": "Nome do proprietário",
+      "hint": "Seu nome",
+      "error_1": "Digite o nome do proprietário"
+    },
+    "card_number": {
+      "title": "Número do cartão",
+      "hint": "XXXX XXXX XXXX XXXX",
+      "error_1": "Digite o número do cartão",
+      "error_2": "Digite um cartão de crédito válido"
+    },
+    "date_exp": {
+      "title": "Valida até",
+      "hint": "MM/YYYY",
+      "error_1": "Mês inválido",
+      "error_2": "Año inválido",
+      "error_3": "Digite uma data"
+    },
+    "cvv_code": {
+      "title": "CVV",
+      "hint": "XXX",
+      "error_1": "Digite o código",
+      "error_2": ""
+    },
+    "error_state": {
+      "title": "Ocorreu um erro",
+      "subtitle": "Tente novamente"
+    },
+    "success_state": {
+      "title": "Cartão atualizado"
+    }
+  },
+  "error_page": {
+    "title_1": "Ticket já está pago",
+    "title_2": "Correu um erro",
+    "title_3": "O servidor não está funcionando",
+    "title_4": "O conteúdo do ticket é incorreto",
+    "title_5": "O valor do ticket é incorreto",
+    "subtitle": "Tente novamente",
+    "error_not_found": "Bilhete não encontrado",
+    "action": "Tente novamente"
+  },
+
+  "ticket_scanner_tutorial": {
+    "title": "Instruções",
+    "subtitle": "Passo {}",
+    "tuto_1": "Clique no ícone do bar Code e aponte para o ticket que deseja pagar",
+    "tuto_2": "Informe os dados de pagamento",
+    "tuto_3": "Verificar o bilhete na saída",
+    "tuto_4": "Você deve terminar de adicionar os dados necessários para fazer um pagamento.",
+    "action_1": "Digitalização",
+    "action_2": "Digite o código",
+    "action_3": "Fim",
+    "action_2_title": "Digite o número\ndo bilhete",
+    "error_msg": "O bilhete contém 12 dígitos"
+  },
+
+  "global_error_messages": {
+    "title": "Ocorreu um erro",
+    "subtitle": "Tenho um erro ao iniciar o aplicativo, por favor tente novamente."
+  },
+
+  "welcome_page": {
+    "title": "Todos os seus bilhetes",
+    "subtitle": "Em um só lugar",
+    "action": "Início"
+  },
+
+  "sing_in_page": {
+    "title": "Olá",
+    "subtitle": "Bem-vindo de volta!",
+    "input_leading_1": "Email",
+    "input_leading_2": "Senha",
+    "action_1": "Esqueceu sua senha?",
+    "action_2": "Acesse",
+    "action_3_1": "Você não tem uma conta",
+    "action_3_2": " Cadastre-se",
+    "error_msgs": {
+      "incorrect_email_or_password": "E-mail ou senha inválidos",
+      "email_not_found": "El correo electrónico no existe",
+      "or_else": "Ocurrio un error"
+    },
+    "email_input_errors": {
+      "invalid_email": "Endereço de e-mail inválido",
+      "with_out_min_string_length": "Deve conter mais de 8 caracteres",
+      "empty": "Digite uma senha válida",
+      "multiline": "O e-mail não pode ser multilinha"
+    },
+    "password_input_errors": {
+      "with_out_min_string_length": "Deve conter mais de 8 caracteres",
+      "empty": "Digite uma senha válida",
+      "multiline": "Osenha não pode ser multilinha"
+    }
+  },
+
+  "sign_up_page": {
+    "action_1": "Próximo",
+    "action_2": "Fim",
+
+    "phase": "Passagem {}/{}",
+    "errors": {
+      "or_else": "Ocurrio un error",
+      "email_already_exists": "Este e-mail já está sendo usado em outra conta",
+      "otpCodeIncorrect": "O código inserido está incorreto"
+    },
+    "msg_error": {
+      "title": "Ocurrio un error",
+      "subtitle_or_else": "Vulver para tentar"
+    },
+    "msg_success": {
+      "title": "Terminamos!",
+      "subtitle": "Agora você pode fazer o login",
+      "snackbar_resend": "Seu código tem sido reenviado para seu e-mail"
+    },
+    "email_page": {
+      "title": "Endereço de\ne-mail",
+      "subtitle": "introduza o seu endereço de correio electrónico para verificar a sua conta.",
+      "input_leading": "hello@gmail.com",
+      "errors": {
+        "invalid_email": "E-mail inválido",
+        "with_out_min_string_length": "Deve conter mais de 8 caracteres",
+        "empty": "Digite un email valido",
+        "multiline": "O e-mail não pode ser multilinha"
+      }
+    },
+    "otp_page": {
+      "title": "Verificação por\ne-mail",
+      "subtitle": "Enviamos-lhe um e-mail de confirmação para seu e-mail ativando sua conta.",
+      "action_1": "Resend code",
+      "action_2": "Limpar tudo",
+      "action_3": "Reenviar"
+    },
+    "password_page": {
+      "title": "Bem-vindo ao",
+      "subtitle": "Introduzir uma palavra-passe forte para prevenir a falsificação.",
+      "input_leading_1": "Senha",
+      "input_leading_2": "Confirme sua senha",
+      "errors": {
+        "with_out_min_string_length": "Debe contener mas de 8 caracteres",
+        "empty": "Digite uma senha válida",
+        "multiline": "A senha não pode ser multi-linha",
+        "not_equeals": "As senhas não correspondem"
+      }
+    }
+  },
+
+  "reset_password_page": {
+    "action_1": "Próximo",
+    "action_2": "Fim",
+    "phase": "Passagem {}/{}",
+    "errors": {
+      "or_else": "Ocurrio un error",
+      "email_already_exists": "Este e-mail já está sendo usado em outra conta",
+      "otpCodeIncorrect": "O código inserido está incorreto"
+    },
+    "msg_error": {
+      "title": "Ocurrio un error",
+      "subtitle_or_else": "Vulver para tentar"
+    },
+    "msg_success": {
+      "title": "Terminamos!",
+      "subtitle": "Agora você pode fazer o login"
+    },
+    "email_page": {
+      "title": "Endereço de\ne-mail",
+      "subtitle": "introduza o seu endereço de correio electrónico para send a code to recover your account.",
+      "input_leading": "hello@gmail.com",
+      "errors": {
+        "invalid_email": "E-mail inválido",
+        "with_out_min_string_length": "Deve conter mais de 8 caracteres",
+        "empty": "Digite un email valido",
+        "multiline": "O e-mail não pode ser multilinha"
+      }
+    },
+    "otp_page": {
+      "title": "Verificação por\ne-mail",
+      "subtitle": "Enviamos um e-mail de confirmação para sua conta de e-mail para redefinir sua senha..",
+      "action_1": "Resend code",
+      "action_2": "Limpar tudo"
+    },
+    "password_page": {
+      "title": "Nova senha",
+      "subtitle": "Introduzir uma palavra-passe forte para prevenir a falsificação.",
+      "input_leading_1": "Senha",
+      "input_leading_2": "Confirme sua senha",
+      "errors": {
+        "with_out_min_string_length": "Debe contener mas de 8 caracteres",
+        "empty": "Digite uma senha válida",
+        "multiline": "A senha não pode ser multi-linha",
+        "not_equeals": "As senhas não correspondem"
+      }
+    }
+  },
+
+  "user_welcome_form_page": {
+    "title": "Termine seu cadastro",
+    "action_1": "Terminar Depois",
+    "step_1": {
+      "title": "Complete seu perfil",
+      "subtitle": "Complete suas informações de perfil.",
+      "content": {
+        "item_1": "- Nome completo",
+        "item_2": "- CPF",
+        "item_3": "- Número de telefone",
+        "item_4": "- Data de nascimento",
+        "item_5": "- Genero"
+      }
+    },
+    "step_2": {
+      "title": "Adicione Endereço",
+      "subtitle": "Adicionar um endereço para associara\nseus pagamentos.",
+      "content": {
+        "item_1": "- Código CEP",
+        "item_2": "- Número de casa",
+        "item_3": "- Nome do endereço"
+      }
+    },
+    "step_3": {
+      "title": "Adicione Método de Pagamento",
+      "subtitle": "Adicione um cartão de crédito ou débito\npara fazer seus pagamentos.",
+      "content": {
+        "item_1": "- Nome do proprietário",
+        "item_2": "- Número do cartão",
+        "item_3": "- Data de expiração",
+        "item_4": "- Código CVV"
+      }
+    }
+  },
+
+  "user_form_page": {
+    "error_state": {
+      "title": "Ocorreu um erro",
+      "subtitle": "Tente novamente"
+    },
+    "action_1": "Continuar",
+    "action_2": "Atualização",
+    "name_input": {
+      "title": "Nome e sobrenome",
+      "subtitle": "Digite seu nome completo",
+      "leading": "Nome",
+      "errors": {
+        "exceedingStringLength": "O nome é muito longo.",
+        "empty": "O nome não pode estar vazio.",
+        "multiline": "O nome não pode ser multilinha."
+      }
+    },
+    "cpf_input": {
+      "title": "CPF",
+      "subtitle": "Digite seu CPF",
+      "errors": {
+        "invalidCpfOrCnpj": "CPF inválido.",
+        "empty": "O CPF não pode estar vazio."
+      }
+    },
+    "phone_number_input": {
+      "title": "Número de telefone",
+      "subtitle": "Digite seu número de telefone pessoal",
+      "errors": {
+        "withOutMinStringLength": "Número de telefone incorreto.",
+        "empty": "O número de telefone não pode estar vazio."
+      }
+    },
+    "birth_input": {
+      "title": "Data de Nascimento",
+      "subtitle": "Digite sua data de nascimento",
+      "errors": {
+        "withOutMinStringLength": "Data inválida.",
+        "empty": "Data inválida."
+      }
+    },
+    "gender_input": {
+      "title": "Gênero",
+      "subtitle": "Selecione seu gênero",
+      "leading": "Gênero"
+    }
+  },
+
+  "address_form_page": {
+    "phase": "Passagem {}/{}",
+    "error_state": {
+      "title": "Ocorreu um erro",
+      "subtitle": "Tente novamente"
+    },
+    "action": "Continuar",
+    "messages": {
+      "error": "Código CEP incorreto"
+    },
+    "cep_input": {
+      "title": "CEP",
+      "subtitle": "Digite o CEP do seu endereço",
+      "leading": "57309610",
+      "errors": {
+        "withOutMinStringLength": "Cep invalido",
+        "empty": "O CEP não pode estar vazio."
+      }
+    },
+    "street_input": {
+      "title": "Endereço",
+      "subtitle": "Confirme se os dados estão corretos",
+      "errors": {
+        "multiline": "Endereço invalido",
+        "empty": "A endereço não pode estar vazia"
+      }
+    },
+    "complement_input": {
+      "title": "Complemento",
+      "subtitle": "Confirme se os dados estão corretos",
+      "errors": {
+        "multiline": "Complemento invalido",
+        "empty": "A complemento não pode estar vazia"
+      }
+    },
+    "number_input": {
+      "title": "Número",
+      "subtitle": "Digite o número de sua casa",
+      "errors": {
+        "multiline": "Número invalido",
+        "empty": "A número não pode estar vazia"
+      }
+    },
+    "neighborhood_input": {
+      "title": "Bairro",
+      "subtitle": "Confirme se os dados estão corretos",
+      "errors": {
+        "multiline": "Bairro invalido",
+        "empty": "A bairro não pode estar vazia"
+      }
+    },
+    "city_inpnut": {
+      "title": "Cidade",
+      "subtitle": "Confirme se os dados estão corretos",
+      "errors": {
+        "multiline": "Cidade invalido",
+        "empty": "A cidade não pode estar vazia"
+      }
+    },
+    "state_inpnut": {
+      "title": "Estado",
+      "subtitle": "Confirme se os dados estão corretos",
+      "errors": {
+        "multiline": "Estado invalido",
+        "empty": "A estado não pode estar vazia"
+      }
+    },
+    "nickname_inpnut": {
+      "title": "Apelido do Endereço",
+      "subtitle": "Confirme se os dados estão corretos",
+      "leading": "Casa",
+      "errors": {
+        "multiline": "Apelido do Endereço invalido",
+        "empty": "A apelido não pode estar vazia"
+      }
+    },
+    "is_prefered_input": {
+      "title": "Endereço Principal",
+      "subtitle": "Defina este endereço como principal"
+    }
+  },
+
+  "user_profile_page": {
+    "title": "Perfil do usuário",
+    "log_out_dialog": {
+      "title": "Você tem certeza de que está desistindo?",
+      "acept": "Sair",
+      "cancel": "Cancelar"
+    },
+    "error_state": {
+      "title": "Ocorreu um erro",
+      "subtitle": "Tente novamente",
+      "error_1": "Não foi possível excluir o endereço"
+    },
+    "success_delete": {
+      "message": "Endereço eliminado"
+    },
+    "user_data_section": {
+      "title": "Dados pessoais",
+      "subtitle_1": "Nome e sobrenome",
+      "subtitle_2": "Endereço de e-mail",
+      "subtitle_3": "Telefone",
+      "subtitle_4": "Gênero",
+      "subtitle_5": "Data de nascimento"
+    },
+
+    "address_section": {
+      "title": "Endereços",
+      "action_1": "Adicionar um endereço",
+
+      "address_edit_page": {
+        "action_1": "Remover",
+        "title": "Endereço",
+        "subtitle_1": "Nome",
+        "subtitle_2": "Principal",
+        "subtitle_3": "Secundário",
+        "subtitle_4": "Bairro",
+        "subtitle_5": "Número",
+        "subtitle_6": "Cidade",
+        "subtitle_7": "Estado"
+      }
+    }
+  },
+
+  "email_edit_page": {
+    "action_1": "Próximo",
+    "action_2": "Fim",
+
+    "phase": "Passagem {}/{}",
+    "errors": {
+      "or_else": "Ocurrio un error",
+      "email_already_exists": "Este e-mail já está sendo usado em outra conta",
+      "otpCodeIncorrect": "O código inserido está incorreto"
+    },
+    "msg_error": {
+      "title": "Ocurrio un error",
+      "subtitle_or_else": "Vulver para tentar"
+    },
+    "msg_success": {
+      "title": "Terminamos!",
+      "subtitle": "Seu e-mail foi atualizado",
+      "snackbar_resend": "Seu código tem sido reenviado para seu e-mail"
+    },
+    "email_page": {
+      "title": "Endereço de\ne-mail",
+      "subtitle": "Digite seu novo endereço de e-mail.",
+      "input_leading": "hello@gmail.com",
+      "errors": {
+        "invalid_email": "E-mail inválido",
+        "with_out_min_string_length": "Deve conter mais de 8 caracteres",
+        "empty": "Digite un email valido",
+        "multiline": "O e-mail não pode ser multilinha"
+      }
+    },
+    "otp_page": {
+      "title": "Verificação por\ne-mail",
+      "subtitle": "Enviamos-lhe um e-mail de confirmação para seu e-mail ativando sua conta.",
+      "action_1": "Resend code",
+      "action_2": "Limpar tudo",
+      "action_3": "Reenviar"
+    }
+  },
+
+  "wallet_home_page": {
+    "app_bar_title": "Carteira",
+    "subtitle_1": "Formas de pagamento",
+    "subtitle_2": "Transações",
+    "empty_message": "Nenhuma transação ainda",
+    "tuto_msg": "Esta é sua carteira e com ela você pode fazer seus pagamentos",
+    "action_1": "Adicionar cartão",
+    "item_title": "Estacionamento",
+    "error_state": {
+      "title": "Ocurrio un error",
+      "subtitle_or_else": "Vulver para tentar"
+    }
+  },
+  "credit_cards_list": {
+    "title": "Formas de pagamento",
+    "success_delete": "Tarjeta eliminada",
+    "action_1": "Selecione",
+    "delete_dialog": {
+      "title": "Você tem certeza?",
+      "accept": "Sim, excluir",
+      "cancel": "Não, cancelar"
+    }
+  },
+  "tickets_archive_page": {
+    "title": "Tickets Pagos",
+    "ticket_header": "Bilhete pagado",
+    "table_values": {
+      "item_1": "Ticket",
+      "item_2": "Valor pago",
+      "item_3": "Fecha"
+    },
+    "details_modal": {
+      "title_1": "Sem Estados {}",
+      "title_2": "Sem Pagamentos {}",
+      "subtitle_1": "Sem Estados",
+      "subtitle_2": "Sem Pagamentos"
+    }
+  }
+}
